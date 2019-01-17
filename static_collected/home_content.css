@@ -1,0 +1,20 @@
+h3.home_content{
+    font-size: 222%;
+    text-align: center;
+    margin-top: 5em;
+    margin-bottom: 4em
+
+}
+div#container{
+    margin: 0 auto;
+    width: 450px;
+    height:200px;
+    margin-bottom: 5em;
+
+}
+div.hot-date{
+    text-align: center;
+} 
+ul.blog-type{
+    list-style-type:none;
+}

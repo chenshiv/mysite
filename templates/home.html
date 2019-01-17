@@ -1,0 +1,157 @@
+{% extends 'base.html' %}
+{% load staticfiles%}
+{% block title %}
+    我的网站
+{% endblock %}
+{% block header_extends %}
+<link rel="stylesheet" href="{% static 'home_content.css' %}">
+<script src="http://cdn.hcharts.cn/highcharts/highcharts.js"></script>
+ {% endblock %}
+{% block nav_home_active %}
+active
+{% endblock %}
+
+
+{% block content %}
+    <h3 class="home_content">网站测试</h3>
+     <!-- 图表容器 DOM -->
+     <div id="container" ></div>
+     <!-- 引入 highcharts.js -->
+     <script src="http://cdn.hcharts.cn/highcharts/highcharts.js"></script>
+     <script>
+         // 图表配置
+         var options = {
+             chart: { type: 'line' },
+             title: {text: null},
+             xAxis: {
+                 categories: {{ dates|safe }},
+                 title:{text:"近七日阅读量"},
+                 },
+             yAxis: {
+                 title: {text: null},
+                 labels:{enabled:false},
+                 gridLineDashStyle:'Dash' 
+             },
+             series: [{                              // 数据列
+                 name: '阅读量',                        // 数据列名
+                 data: {{ read_nums }}
+             }], 
+             plotOptions: {
+                line: {
+                    dataLabels: {
+                        enabled: true
+                    }
+                }
+            },
+                                    
+             legend:{enabled: false},
+             credits:{enabled:false},
+         };
+         // 图表初始化函数
+         var chart = Highcharts.chart('container', options);
+     </script>
+     <!-- <div class="hot-date"> 
+         <h3>今日热门博客</h3>
+         <ul>
+            {% for hot_date in hot_date %}
+                <li><a href="{% url 'blog_detail' hot_date.id %}">{{hot_date.title}}({{ hot_date.read_num_sum}})</a></li>
+            {% empty %}
+                <li>--暂无热门博客--</li>
+            {% endfor %}
+         </ul>
+    </div>
+    <div class="hot-date"> 
+            <h3>昨日热门博客</h3>
+            <ul>
+                {% for hot_date in yesterday_hot_date %}
+                <li><a href="{% url 'blog_detail' hot_date.id %}">{{hot_date.title}}({{ hot_date.read_num_sum}})</a></li>
+                {% empty %}
+                <li>--暂无热门博客--</li>
+                {% endfor %}
+            </ul>
+       </div>
+       <div class="hot-date"> 
+            <h3>近七日热门博客</h3>
+            <ul>
+                {% for hot_date in seven_day_hot_date %}
+                <li><a href="{% url 'blog_detail' hot_date.id %}">{{ hot_date.title }}({{ hot_date.read_num_sum}})</a></li>
+                {% empty %}
+                <li>--暂无热门博客--</li>
+                {% endfor %}
+            </ul>
+       </div>
+       <div class="hot-date"> 
+            <h3>近30日热门博客</h3>
+           <ul>
+                {% for hot_date in seven_day_hot_date %}
+                <li><a href="{% url 'blog_detail' hot_date.id %}">{{ hot_date.title }}({{ hot_date.read_num_sum}})</a></li>
+                {% empty %}
+                <li>--暂无热门博客--</li>
+                {% endfor %}
+            </ul>
+       </div> -->
+
+    <div class="container">
+            <div class="row">
+                <div class="col-sm-3">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">今日热门微博</div>
+                            <div class="panel-body">
+                                <ul class = blog-type>
+                                    {% for hot_date in hot_date %}
+                                        <li><a href="{% url 'blog_detail' hot_date.id %}">{{hot_date.title}}({{ hot_date.read_num_sum}})</a></li>
+                                    {% empty %}
+                                        <li>--暂无热门博客--</li>
+                                    {% endfor %}
+                                </ul>
+    </div></div></div>
+    <div class="container">
+            <div class="row">
+                <div class="col-sm-3">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">昨日热门微博</div>
+                            <div class="panel-body">
+                                <ul class = blog-type>
+                                    {% for hot_date in yesterday_hot_date %}
+                                        <li><a href="{% url 'blog_detail' hot_date.id %}">{{hot_date.title}}({{ hot_date.read_num_sum}})</a></li>
+                                    {% empty %}
+                                        <li>--暂无热门博客--</li>
+                                    {% endfor %}
+                                </ul>
+    </div></div></div>
+    <div class="container">
+            <div class="row">
+                <div class="col-sm-3">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">近7日热门微博</div>
+                            <div class="panel-body">
+                                <ul class = blog-type>
+                                    {% for hot_date in seven_day_hot_date %}
+                                        <li><a href="{% url 'blog_detail' hot_date.id %}">{{hot_date.title}}({{ hot_date.read_num_sum}})</a></li>
+                                    {% empty %}
+                                        <li>--暂无热门博客--</li>
+                                    {% endfor %}
+                                </ul>
+    </div></div></div>
+    <div class="container">
+            <div class="row">
+                <div class="col-sm-3">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">近30日热门微博</div>
+                            <div class="panel-body">
+                                <ul class = blog-type>
+                                    {% for hot_date in month_day_hot_date %}
+                                        <li><a href="{% url 'blog_detail' hot_date.id %}">{{hot_date.title}}({{ hot_date.read_num_sum}})</a></li>
+                                    {% empty %}
+                                        <li>--暂无热门博客--</li>
+                                    {% endfor %}
+                                </ul>
+    </div></div></div></div></div>
+                            
+                   
+               
+            
+        
+        
+
+{% endblock %}
